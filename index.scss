@@ -32,10 +32,16 @@ main {
         flex-direction: row;
         justify-content: space-around;
 
-        .addedContactList {
+        .container {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+
+            .addedContactList,
+            .favourites {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+            }
         }
     }
 }

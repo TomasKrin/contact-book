@@ -28,7 +28,12 @@ main .contactLists {
   flex-direction: row;
   justify-content: space-around;
 }
-main .contactLists .addedContactList {
+main .contactLists .container {
+  display: flex;
+  flex-direction: column;
+}
+main .contactLists .container .addedContactList,
+main .contactLists .container .favourites {
   display: flex;
   flex-direction: column;
   gap: 20px;
