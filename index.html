@@ -11,7 +11,43 @@
     </head>
 
     <body>
-
+        <main>
+            <div class="buttons">
+                <button id="create">Create New Contact</button>
+                <button id="clearAll">Clear All Contacts</button>
+                <button id="clearSelected">Clear Selected Contacts</button>
+                <button id="search">Search Contacts</button>
+                <button id="favourites">Add/Remove Selected to
+                    Favourites</button>
+            </div>
+            <form>
+                <div class="cont">
+                    <label for="name">Name</label>
+                    <input type="text" name="name" id="name">
+                </div>
+                <div class="cont">
+                    <label for="pNumber">Phone Number</label>
+                    <input type="number" name="pNumber" id="pNumber">
+                </div>
+                <div class="cont">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" id="email">
+                </div>
+                <div class="cont">
+                    <label for="adress">Home Adress</label>
+                    <input type="text" name="adress" id="adress">
+                </div>
+                <button type="submit">Add contact</button>
+            </form>
+            <section class="contactLists">
+                <div class="addedContactList">
+                    <h1>Your Contact List</h1>
+                </div>
+                <div class="addedContactList">
+                    <h1>Favourites</h1>
+                </div>
+            </section>
+        </main>
     </body>
 
 </html>

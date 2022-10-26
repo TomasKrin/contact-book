@@ -2,4 +2,40 @@ body {
     margin: 0;
     padding: 20px;
     background-color: black;
+    color: white;
+}
+
+main {
+    .buttons {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        background-color: gray;
+        padding: 20px;
+        margin: 10px;
+        gap: 10px;
+        border-radius: 10px;
+
+        .cont {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
+
+    .contactLists {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+
+        .addedContactList {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+    }
 }
