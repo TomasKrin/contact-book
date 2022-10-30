@@ -19,6 +19,7 @@ const contactList = JSON.parse(localStorage.getItem(`contacts`)) || [];
 const favoriteList = JSON.parse(localStorage.getItem(`favorites`)) || [];
 
 form.style.display = `none`;
+searchInp.style.display = `none`;
 
 createBtn.addEventListener(`click`, () => {
     form.style.display = `flex`;
@@ -28,6 +29,12 @@ clearAllBtn.addEventListener(`click`, () => {
     localStorage.clear();
     location.reload();
 });
+
+const searchInpDisplay = () => {
+    searchInp.style.display = `block`;
+};
+
+searchBtn.addEventListener(`click`, searchInpDisplay);
 
 const renderDiv = (contact, divLocation, index) => {
     div = document.createElement(`div`);
