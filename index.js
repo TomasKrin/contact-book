@@ -7,6 +7,9 @@ const searchInp = document.querySelector(`#searchInp`);
 const favouritesBtn = document.querySelector(`#favorites`);
 const addedContactList = document.querySelector(`#addedContactList`);
 const addedFavoritesList = document.querySelector(`#addedFavoritesList`);
+const searchResults = document.querySelector(`#searchResult`);
+const resultH1 = document.querySelector(`#resultTitle`);
+
 let div;
 let newContact;
 let delBtn;
@@ -15,11 +18,13 @@ let selectBtn;
 let editBtn;
 let btnDiv;
 let delFromFavorites;
+
 const contactList = JSON.parse(localStorage.getItem(`contacts`)) || [];
 const favoriteList = JSON.parse(localStorage.getItem(`favorites`)) || [];
 
 form.style.display = `none`;
 searchInp.style.display = `none`;
+resultH1.style.display = `none`;
 
 createBtn.addEventListener(`click`, () => {
     form.style.display = `flex`;
@@ -32,9 +37,11 @@ clearAllBtn.addEventListener(`click`, () => {
 
 const searchInpDisplay = () => {
     searchInp.style.display = `block`;
+    resultH1.style.display = `block`;
 };
 
 searchBtn.addEventListener(`click`, searchInpDisplay);
+
 
 const renderDiv = (contact, divLocation, index) => {
     div = document.createElement(`div`);
@@ -78,6 +85,25 @@ const renderDiv = (contact, divLocation, index) => {
     paragrPNumber.style.margin = `0`;
     paragrEmail.style.margin = `0`;
     paragrAddress.style.margin = `0`;
+
+    btnDiv.style.marginTop = `10px`;
+
+    delBtn.style.backgroundColor = `red`;
+    delBtn.style.color = `white`;
+    delBtn.style.marginRight = `20px`;
+    delBtn.style.padding = `5px 10px`;
+    delBtn.style.border = `hidden`;
+    delBtn.style.borderRadius = `5px`;
+
+    addToFavBtn.style.backgroundColor = `#4DB654`;
+    addToFavBtn.style.color = `white`;
+    addToFavBtn.style.marginRight = `20px`;
+    addToFavBtn.style.padding = `5px 10px`;
+    addToFavBtn.style.border = `hidden`;
+    addToFavBtn.style.borderRadius = `5px`;
+
+
+
 
     paragrName.textContent = `Name: ${contact.name} `;
     paragrPNumber.textContent = `Phone: ${contact.pNumber} `;
@@ -186,7 +212,7 @@ class Contact {
 };
 
 form.addEventListener(`submit`, (event) => {
-    event.preventDefault();
+    // event.preventDefault();
     form.style.display = `none`;
     const name = document.querySelector(`#name`);
     const pNumber = document.querySelector(`#pNumber`);
@@ -199,6 +225,24 @@ form.addEventListener(`submit`, (event) => {
     localStorage.setItem(`contacts`, JSON.stringify(contactList));
 
     console.log(contactList);
-    createContactCard(contactList, addedContactList);
+
 });
 
+createContactCard(contactList, addedContactList);
+
+
+searchInp.addEventListener(`keyup`, () => {
+    if (!searchInp.value) {
+        return searchResults.innerHTML = ``, [];
+    };
+
+    const filterContactList = contactList.filter(contact => contact.name.includes(searchInp.value) || contact.name.toLowerCase() || contact.pNumber.includes(searchInp.value) || contact.email.includes(searchInp.value) || contact.address.includes(searchInp.value));
+    const filterFavoritesList = favoriteList.filter(contact => contact.name.includes(searchInp.value) || contact.name.toLowerCase() || contact.pNumber.includes(searchInp.value) || contact.email.includes(searchInp.value) || contact.address.includes(searchInp.value));
+
+    const searchOutput = filterContactList.concat(filterFavoritesList);
+    console.log(`searchOutput`, searchOutput);
+
+    if (searchOutput) {
+        createContactCard(searchOutput, searchResults)
+    };
+});
