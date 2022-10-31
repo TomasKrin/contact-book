@@ -14,8 +14,6 @@ let div;
 let newContact;
 let delBtn;
 let addToFavBtn;
-let selectBtn;
-let editBtn;
 let btnDiv;
 let delFromFavorites;
 
@@ -53,8 +51,6 @@ const renderDiv = (contact, divLocation, index) => {
     delFromFavorites = document.createElement(`button`);
     delBtn = document.createElement(`button`);
     addToFavBtn = document.createElement(`button`);
-    // selectBtn = document.createElement(`button`);
-    // editBtn = document.createElement(`button`);
     div.setAttribute(`id`, `${contact.name}`);
 
     divLocation.append(div);
@@ -68,8 +64,6 @@ const renderDiv = (contact, divLocation, index) => {
     btnDiv.appendChild(delBtn);
     btnDiv.appendChild(addToFavBtn);
     btnDiv.appendChild(delFromFavorites);
-    // btnDiv.appendChild(selectBtn);
-    // btnDiv.appendChild(editBtn);
 
     div.style.display = `flex`;
     div.style.flexDirection = `column`;
@@ -79,6 +73,7 @@ const renderDiv = (contact, divLocation, index) => {
     div.style.margin = `10px`;
     div.style.padding = `20px`;
     div.style.boxShadow = `2px 2px 2px 0.1px rgba(0, 0, 0, 0.642)`
+    div.style.fontSize = `14.5px`;
 
     delFromFavorites.style.display = `none`;
 
@@ -104,14 +99,11 @@ const renderDiv = (contact, divLocation, index) => {
     addToFavBtn.style.borderRadius = `5px`;
 
     delFromFavorites.style.backgroundColor = `#468DEF`;
-    delFromFavorites.style.color = `red`;
+    delFromFavorites.style.color = `#E50000`;
     delFromFavorites.style.marginRight = `20px`;
     delFromFavorites.style.padding = `5px 10px`;
     delFromFavorites.style.border = `hidden`;
     delFromFavorites.style.borderRadius = `5px`;
-
-
-
 
     paragrName.textContent = `Name: ${contact.name} `;
     paragrPNumber.textContent = `Phone: ${contact.pNumber} `;
@@ -121,26 +113,34 @@ const renderDiv = (contact, divLocation, index) => {
     delBtn.textContent = `Del`;
     addToFavBtn.textContent = `Add to Favourites`;
     delFromFavorites.textContent = `Remove from favorites`;
-    // selectBtn.textContent = `Select`;
-    // editBtn.textContent = `edit`;
 
     if (divLocation === addedFavoritesList) {
-        delBtn.style.display = `none`;
         addToFavBtn.style.display = `none`;
+        delBtn.style.display = `none`;
         delFromFavorites.style.display = `block`;
     };
 
     console.log(`incoming div`, index);
 };
 
-const delBtnFunc = (contact, index) => {
+const delBtnFunc = (contactList, contact) => {
     delBtn.addEventListener(`click`, () => {
         let confirmDel = confirm(`Are you sure want to delete contact: ${contact.name} ? `);
         if (confirmDel) {
-            contactList.splice(index, 1);
+
+            let idCon = contactList.indexOf(contact);
+            contactList.splice(idCon, 1);
+
+            let idFav = favoriteList.indexOf(contact);
+            if (idFav !== -1) {
+                favoriteList.splice(idFav, 1);
+            };
+
             localStorage.setItem(`contacts`, JSON.stringify(contactList));
+            localStorage.setItem(`favorites`, JSON.stringify(favoriteList));
+
             createContactCard(contactList, addedContactList);
-            location.reload();
+            createFavoriteCard(favoriteList, addedFavoritesList);
         };
     });
 };
@@ -150,7 +150,9 @@ const addToFavBtnFunc = (contactList, contact, index) => {
     addToFavBtn.addEventListener(`click`, () => {
         console.log(`#`, contactList);
 
-        let fav = contactList.splice(index, 1);
+        const copy = contactList.map(copy => copy);
+        console.log(copy);
+        let fav = copy.splice(index, 1);
         console.log(`contact list`, contactList);
         let id = fav.indexOf(contact);
         console.log(`id`, fav[id], id);
@@ -161,9 +163,7 @@ const addToFavBtnFunc = (contactList, contact, index) => {
         console.log(`#`, contactList);
 
         localStorage.setItem(`favorites`, JSON.stringify(favoriteList));
-        localStorage.setItem(`contacts`, JSON.stringify(contactList));
 
-        createContactCard(contactList, addedContactList);
         createFavoriteCard(favoriteList, addedFavoritesList);
     });
 };
@@ -173,19 +173,15 @@ const delFromFavFunc = (favoriteList, contact, index) => {
     delFromFavorites.addEventListener(`click`, () => {
         let confirmDel = confirm(`Are you sure, you want to remove from favorites contact: ${contact.name} ? `);
         if (confirmDel) {
-            let unFav = favoriteList.splice(index, 1);
+            favoriteList.splice(index, 1);
             console.log(`contact list`, favoriteList);
-            let id = unFav.indexOf(contact);
-            console.log(`id`, unFav[id], id);
 
-            contactList.push(unFav[id]);
-
-            localStorage.setItem(`contacts`, JSON.stringify(contactList));
             localStorage.setItem(`favorites`, JSON.stringify(favoriteList));
 
             createFavoriteCard(favoriteList, addedFavoritesList);
             createContactCard(contactList, addedContactList);
         };
+
     });
 };
 
@@ -195,7 +191,7 @@ const createContactCard = (contactList, divLocation) => {
 
     contactList.forEach((contact, index) => {
         renderDiv(contact, divLocation, index);
-        delBtnFunc(contact, index);
+        delBtnFunc(contactList, contact, index);
         addToFavBtnFunc(contactList, contact, index);
         delFromFavFunc(favoriteList, contact, index);
     });
@@ -246,16 +242,13 @@ window.addEventListener(`load`, () => {
 
 searchInp.addEventListener(`keyup`, () => {
     if (!searchInp.value) {
-        return searchResults.innerHTML = ``, [];
+        return searchResults.innerHTML = ``, searchInp.style.display = `none`, [];
     };
 
     const filterContactList = contactList.filter(contact => contact.name.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.pNumber.includes(searchInp.value) || contact.email.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.address.toLowerCase().includes(searchInp.value.toLowerCase()));
-    const filterFavoritesList = favoriteList.filter(contact => contact.name.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.pNumber.includes(searchInp.value) || contact.email.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.address.toLowerCase().includes(searchInp.value.toLowerCase()));
 
-    const searchOutput = filterContactList.concat(filterFavoritesList);
-    console.log(`searchOutput`, searchOutput);
 
-    if (searchOutput) {
-        createContactCard(searchOutput, searchResults)
+    if (filterContactList) {
+        createContactCard(filterContactList, searchResults)
     };
 });

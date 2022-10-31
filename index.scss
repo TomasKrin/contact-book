@@ -3,16 +3,23 @@ body {
     padding: 20px;
     background: rgb(220, 255, 0);
     background: linear-gradient(100deg, rgba(220, 255, 0, 0.4686917003129377) 0%, rgba(255, 193, 170, 1) 96%);
+    font-family: Baskerville, Baskerville Old Face, Hoefler Text, Garamond, Times New Roman, serif;
 
 
     main {
         button {
             cursor: pointer;
+            font-weight: 600;
+        }
+
+        h1 {
+            font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
         }
 
         .buttons {
             display: flex;
             justify-content: space-around;
+            align-items: baseline;
 
             .mainpageBtn {
                 color: white;
@@ -34,6 +41,11 @@ body {
                 background-color: #468DEF;
             }
 
+            #searchInp {
+                height: 20px;
+                margin-top: 20px;
+            }
+
         }
 
         form {
@@ -43,6 +55,7 @@ body {
             background-color: #b9d5fd;
             padding: 20px;
             margin: 10px;
+            margin-top: 20px;
             gap: 10px;
             border-radius: 10px;
             border: 5px solid #468DEF;

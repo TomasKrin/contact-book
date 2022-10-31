@@ -3,13 +3,19 @@ body {
   padding: 20px;
   background: rgb(220, 255, 0);
   background: linear-gradient(100deg, rgba(220, 255, 0, 0.4686917003) 0%, rgb(255, 193, 170) 96%);
+  font-family: Baskerville, Baskerville Old Face, Hoefler Text, Garamond, Times New Roman, serif;
 }
 body main button {
   cursor: pointer;
+  font-weight: 600;
+}
+body main h1 {
+  font-family: Courier New, Courier, Lucida Sans Typewriter, Lucida Typewriter, monospace;
 }
 body main .buttons {
   display: flex;
   justify-content: space-around;
+  align-items: baseline;
 }
 body main .buttons .mainpageBtn {
   color: white;
@@ -27,6 +33,10 @@ body main .buttons #create {
 body main .buttons #searchBtn {
   background-color: #468DEF;
 }
+body main .buttons #searchInp {
+  height: 20px;
+  margin-top: 20px;
+}
 body main form {
   display: flex;
   flex-direction: column;
@@ -34,6 +44,7 @@ body main form {
   background-color: #b9d5fd;
   padding: 20px;
   margin: 10px;
+  margin-top: 20px;
   gap: 10px;
   border-radius: 10px;
   border: 5px solid #468DEF;
