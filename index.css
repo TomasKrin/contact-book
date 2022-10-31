@@ -1,39 +1,64 @@
 body {
   margin: 0;
   padding: 20px;
-  background-color: black;
-  color: white;
+  background: rgb(220, 255, 0);
+  background: linear-gradient(100deg, rgba(220, 255, 0, 0.4686917003) 0%, rgb(255, 193, 170) 96%);
 }
-
-main .buttons {
+body main button {
+  cursor: pointer;
+}
+body main .buttons {
   display: flex;
   justify-content: space-around;
 }
-main form {
+body main .buttons .mainpageBtn {
+  color: white;
+  padding: 15px 25px;
+  border: hidden;
+  border-radius: 10px;
+  box-shadow: 3px 3px 3px 0.5px rgba(0, 0, 0, 0.642);
+}
+body main .buttons #clearAll {
+  background-color: red;
+}
+body main .buttons #create {
+  background-color: #4DB654;
+}
+body main .buttons #searchBtn {
+  background-color: #468DEF;
+}
+body main form {
   display: flex;
   flex-direction: column;
   width: 300px;
-  background-color: gray;
+  background-color: #b9d5fd;
   padding: 20px;
   margin: 10px;
   gap: 10px;
   border-radius: 10px;
+  border: 5px solid #468DEF;
 }
-main form .cont {
+body main form .cont {
   display: flex;
   justify-content: space-between;
 }
-main .contactLists {
+body main form .submitBtn {
+  padding: 10px 20px;
+  background-color: #468DEF;
+  color: white;
+  border-color: white;
+}
+body main .contactLists {
   display: flex;
   flex-direction: row;
   justify-content: space-around;
 }
-main .contactLists .container {
+body main .contactLists .container {
   display: flex;
   flex-direction: column;
 }
-main .contactLists .container .addedContactList,
-main .contactLists .container .favourites {
+body main .contactLists .container .addedContactList,
+body main .contactLists .container .addedFavoritesList {
   display: flex;
   flex-direction: column;
   gap: 20px;

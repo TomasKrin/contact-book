@@ -73,11 +73,12 @@ const renderDiv = (contact, divLocation, index) => {
 
     div.style.display = `flex`;
     div.style.flexDirection = `column`;
-    div.style.backgroundColor = `gray`;
+    div.style.backgroundColor = `#b9d5fd`;
     div.style.borderRadius = `10px`;
     div.style.width = `250px`;
     div.style.margin = `10px`;
     div.style.padding = `20px`;
+    div.style.boxShadow = `2px 2px 2px 0.1px rgba(0, 0, 0, 0.642)`
 
     delFromFavorites.style.display = `none`;
 
@@ -101,6 +102,13 @@ const renderDiv = (contact, divLocation, index) => {
     addToFavBtn.style.padding = `5px 10px`;
     addToFavBtn.style.border = `hidden`;
     addToFavBtn.style.borderRadius = `5px`;
+
+    delFromFavorites.style.backgroundColor = `#468DEF`;
+    delFromFavorites.style.color = `red`;
+    delFromFavorites.style.marginRight = `20px`;
+    delFromFavorites.style.padding = `5px 10px`;
+    delFromFavorites.style.border = `hidden`;
+    delFromFavorites.style.borderRadius = `5px`;
 
 
 
@@ -163,7 +171,7 @@ const addToFavBtnFunc = (contactList, contact, index) => {
 
 const delFromFavFunc = (favoriteList, contact, index) => {
     delFromFavorites.addEventListener(`click`, () => {
-        let confirmDel = confirm(`Are you sure, you want to remove from favorites, contact: ${contact.name} ? `);
+        let confirmDel = confirm(`Are you sure, you want to remove from favorites contact: ${contact.name} ? `);
         if (confirmDel) {
             let unFav = favoriteList.splice(index, 1);
             console.log(`contact list`, favoriteList);
@@ -189,6 +197,7 @@ const createContactCard = (contactList, divLocation) => {
         renderDiv(contact, divLocation, index);
         delBtnFunc(contact, index);
         addToFavBtnFunc(contactList, contact, index);
+        delFromFavFunc(favoriteList, contact, index);
     });
 };
 
@@ -228,7 +237,11 @@ form.addEventListener(`submit`, (event) => {
 
 });
 
-createContactCard(contactList, addedContactList);
+window.addEventListener(`load`, () => {
+    createContactCard(contactList, addedContactList);
+    createContactCard(favoriteList, addedFavoritesList);
+})
+
 
 
 searchInp.addEventListener(`keyup`, () => {
@@ -236,8 +249,8 @@ searchInp.addEventListener(`keyup`, () => {
         return searchResults.innerHTML = ``, [];
     };
 
-    const filterContactList = contactList.filter(contact => contact.name.includes(searchInp.value) || contact.name.toLowerCase() || contact.pNumber.includes(searchInp.value) || contact.email.includes(searchInp.value) || contact.address.includes(searchInp.value));
-    const filterFavoritesList = favoriteList.filter(contact => contact.name.includes(searchInp.value) || contact.name.toLowerCase() || contact.pNumber.includes(searchInp.value) || contact.email.includes(searchInp.value) || contact.address.includes(searchInp.value));
+    const filterContactList = contactList.filter(contact => contact.name.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.pNumber.includes(searchInp.value) || contact.email.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.address.toLowerCase().includes(searchInp.value.toLowerCase()));
+    const filterFavoritesList = favoriteList.filter(contact => contact.name.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.pNumber.includes(searchInp.value) || contact.email.toLowerCase().includes(searchInp.value.toLowerCase()) || contact.address.toLowerCase().includes(searchInp.value.toLowerCase()));
 
     const searchOutput = filterContactList.concat(filterFavoritesList);
     console.log(`searchOutput`, searchOutput);

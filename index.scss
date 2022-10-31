@@ -1,46 +1,80 @@
 body {
     margin: 0;
     padding: 20px;
-    background-color: black;
-    color: white;
-}
+    background: rgb(220, 255, 0);
+    background: linear-gradient(100deg, rgba(220, 255, 0, 0.4686917003129377) 0%, rgba(255, 193, 170, 1) 96%);
 
-main {
-    .buttons {
-        display: flex;
-        justify-content: space-around;
-    }
 
-    form {
-        display: flex;
-        flex-direction: column;
-        width: 300px;
-        background-color: gray;
-        padding: 20px;
-        margin: 10px;
-        gap: 10px;
-        border-radius: 10px;
-
-        .cont {
-            display: flex;
-            justify-content: space-between;
+    main {
+        button {
+            cursor: pointer;
         }
-    }
 
-    .contactLists {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
+        .buttons {
+            display: flex;
+            justify-content: space-around;
 
-        .container {
+            .mainpageBtn {
+                color: white;
+                padding: 15px 25px;
+                border: hidden;
+                border-radius: 10px;
+                box-shadow: 3px 3px 3px 0.5px rgba(0, 0, 0, 0.642);
+            }
+
+            #clearAll {
+                background-color: red;
+            }
+
+            #create {
+                background-color: #4DB654;
+            }
+
+            #searchBtn {
+                background-color: #468DEF;
+            }
+
+        }
+
+        form {
             display: flex;
             flex-direction: column;
+            width: 300px;
+            background-color: #b9d5fd;
+            padding: 20px;
+            margin: 10px;
+            gap: 10px;
+            border-radius: 10px;
+            border: 5px solid #468DEF;
 
-            .addedContactList,
-            .addedFavoritesList {
+            .cont {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .submitBtn {
+                padding: 10px 20px;
+                background-color: #468DEF;
+                color: white;
+                border-color: white;
+            }
+        }
+
+        .contactLists {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+
+            .container {
                 display: flex;
                 flex-direction: column;
-                gap: 20px;
+
+                .addedContactList,
+                .addedFavoritesList {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 20px;
+                }
             }
         }
     }
