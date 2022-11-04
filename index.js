@@ -240,12 +240,12 @@ form.addEventListener(`submit`, (event) => {
 
 window.addEventListener(`load`, () => {
     createContactCard(contactList, addedContactList);
-    createContactCard(favoriteList, addedFavoritesList);
+    createFavoriteCard(favoriteList, addedFavoritesList);
 })
 
 
 
-searchInp.addEventListener(`keyup`, () => {
+searchInp.addEventListener(`input`, () => {
     if (!searchInp.value) {
         return searchResults.innerHTML = ``, searchInp.style.display = `none`, [];
     };
@@ -255,5 +255,8 @@ searchInp.addEventListener(`keyup`, () => {
 
     if (filterContactList) {
         createContactCard(filterContactList, searchResults)
-    };
+    } else {
+        createContactCard(contactList, addedContactList);
+        createFavoriteCard(favoriteList, addedFavoritesList);
+    }
 });
